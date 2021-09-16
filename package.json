@@ -1,0 +1,75 @@
+{
+  "name": "task-cache",
+  "version": "1.0.0",
+  "description": "A small library implementing a cache layer over remote functions",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "fes300",
+  "license": "MIT",
+  "private": false,
+  "tags": [
+    "typescript",
+    "react"
+  ],
+  "keywords": [
+    "typescript",
+    "functional-programming",
+    "cache"
+  ],
+  "peerDependencies": {
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.0.0",
+    "@commitlint/config-conventional": "^12.0.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/npm": "^7.0.10",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/react-hooks": "^5.0.3",
+    "@types/jest": "^26.0.20",
+    "@types/react": "^17.0.2",
+    "dts-jest": "^23.3.0",
+    "husky": "^7.0.2",
+    "is-ci": "^3.0.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "pinst": "^2.1.6",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-hooks-testing-library": "^0.6.0",
+    "react-test-renderer": "^17.0.1",
+    "semantic-release": "^17.3.9",
+    "ts-jest": "^26.5.1",
+    "typescript": "^4.4.2"
+  },
+  "scripts": {
+    "postinstall": "is-ci || husky install",
+    "prepublishOnly": "pinst --disable",
+    "postversion": "cp -r package.json ..",
+    "postpublish": "pinst --enable",
+    "lint-staged": "lint-staged",
+    "build": "rm -rf ./dist && tsc && cp package.json README.md ./dist",
+    "test": "jest --config=jest.config.js --passWithNoTests",
+    "release:dry": "semantic-release -d --no-ci --debug"
+  },
+  "lint-staged": {
+    "src/*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ],
+    "src/*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@devexperts/remote-data-ts": "^2.1.0",
+    "fp-ts": "^2.11.1",
+    "io-ts": "^2.2.16",
+    "io-ts-types": "^0.5.16",
+    "rxjs": "^7.3.0"
+  }
+}
