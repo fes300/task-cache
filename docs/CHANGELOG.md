@@ -1,3 +1,10 @@
+# 1.0.0 (2021-09-16)
+
+
+### Features
+
+* initial commit ([1765501](https://github.com/fes300/task-cache/commit/1765501e4fa0a7cbf41fe29f8c7919b5c4fe9986))
+
 # [2.0.0-beta.1](https://github.com/ModataSRL/task-cache/compare/v1.2.7...v2.0.0-beta.1) (2021-03-07)
 
 - refactor!: local-value as sum type ([641ed85](https://github.com/ModataSRL/task-cache/commit/641ed85bad00bb13c2f484b8e0d2463db9b44690))
