@@ -8,8 +8,8 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
-  testMatch: ["**/+(*.)*(test).ts"],
+  testMatch: ["**/+(*.)*(test).ts", "**/+(*.)*(test).tsx"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   name: "task-cache",
-  displayName: "task-cache",
+  displayName: "task-cache"
 }

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { readerTaskEither, string } from "fp-ts"
+import { readerTaskEither, string, either } from "fp-ts"
 import * as RD from "@devexperts/remote-data-ts/lib"
 import { cached, CacheStrategy, getCacheValue, setCacheValue } from ".."
 import { pipe } from "fp-ts/function"
@@ -44,7 +44,6 @@ export const getUseRTAHook = <R, E, A>(
 
       if (RD.isInitial(value) || strategy.shouldRefetch(cacheValue.getValue())) {
         setCacheValue(rta, i, strategy.inputEq, RD.pending)
-
         cachedRta(i)()
       }
       return () => subs.unsubscribe()
@@ -60,4 +59,51 @@ export const getUseRTAHook = <R, E, A>(
 
     return [value, invalidate]
   }
+}
+
+export const getUseSuspenseHook = <R, E, A>(
+  rta: readerTaskEither.ReaderTaskEither<R, E, A>,
+  cacheStrategy?: Partial<CacheStrategy<R, E, A>>,
+): ((i: R) => A) => {
+  const strategy = getDefaultStrategy(cacheStrategy)
+  const [cachedRta] = cached(rta, strategy)
+  let result:
+    | { type: "fetched"; data: A }
+    | { type: "initial" }
+    | { type: "pending"; promise: Promise<either.Either<E, A>> } = { type: "initial" }
+  let error: E | null = null
+
+  const hook = ((i: R) => {
+    if (result.type === "pending") {
+      throw result.promise
+    }
+    if (result.type === "fetched") {
+      return result.data
+    }
+    if (error !== null) {
+      throw error
+    }
+
+    const promise = cachedRta(i)()
+
+    result = { type: "pending", promise }
+
+    promise.then((v) => {
+      pipe(
+        v,
+        either.fold(
+          (e) => {
+            error = e
+          },
+          (v) => {
+            result = { type: "fetched", data: v }
+          },
+        ),
+      )
+    })
+
+    throw promise
+  }) as (i: R) => A
+
+  return hook
 }

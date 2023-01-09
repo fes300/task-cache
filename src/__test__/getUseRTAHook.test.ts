@@ -5,7 +5,7 @@ import { eq, eqString } from "fp-ts/lib/Eq"
 import { getUseRTAHook } from "../react"
 
 describe("getUseRTAHook", () => {
-  it("returns returns the correct values and caches correctly when invalidation is false", async () => {
+  it("returns the correct values and caches correctly when invalidation is false", async () => {
     const inputEq = eq.contramap(eqString, (s: { bar: string }) => s.bar)
 
     const rta = jest.fn((_: { bar: string }) => {
@@ -24,7 +24,7 @@ describe("getUseRTAHook", () => {
     expect(rta).toHaveBeenCalledTimes(1)
   })
 
-  it("returns returns the correct values and caches correctly when invalidation is true", async () => {
+  it("returns the correct values and caches correctly when invalidation is true", async () => {
     const inputEq = eq.contramap(eqString, (s: { bar: string }) => s.bar)
 
     let firstPaint = true
@@ -57,7 +57,7 @@ describe("getUseRTAHook", () => {
     expect(rta).toHaveBeenCalledTimes(2)
   })
 
-  it("returns returns the correct values and caches correctly when invalidation is called manually", async () => {
+  it("returns the correct values and caches correctly when invalidation is called manually", async () => {
     const inputEq = eq.contramap(eqString, (s: { bar: string }) => s.bar)
 
     const rta = jest.fn((_: { bar: string }) => {
@@ -85,3 +85,4 @@ describe("getUseRTAHook", () => {
     expect(rta).toHaveBeenCalledTimes(2)
   })
 })
+
