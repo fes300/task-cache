@@ -1,3 +1,10 @@
+# [1.1.0-beta.1](https://github.com/fes300/task-cache/compare/v1.0.0...v1.1.0-beta.1) (2023-01-09)
+
+
+### Features
+
+* add simple suspence integration ([a107bea](https://github.com/fes300/task-cache/commit/a107beaead00d8a36637dcd68af239164258fdd6))
+
 # 1.0.0 (2021-09-16)
 
 
